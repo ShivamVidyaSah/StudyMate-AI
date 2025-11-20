@@ -1,24 +1,11 @@
 import express from "express";
-import { summarizeText } from "../services/geminiService";
+import { testGemini } from "../controller/testController";
+
 
 const router = express.Router();
 
-router.post('/summarize', async (req,res) => {
-    try{
-        const {text} = req.body;
-        console.log(text);
+router.post('/testgemini', testGemini)
 
-        if(!text){
-            return res.status(400).json({error: "Text is required"});
-        }
 
-        const summary = await summarizeText(text);
-        res.status(200).json({summary});
-
-    }catch(error){
-        console.error("Error in summarize route:", error);
-        res.status(500).json({ message: "Failed to summarize text" });
-    }
-})
 
 export default router;
